@@ -21,13 +21,15 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(authUser(userData));
-    if (errors) {
-      console.log(errors); // ПРОБЛЕМА: errors выводится как initialState
-    } else {
-      setUserData({ email: '', password: '', name: '' });
-      navigate('/todos');
-    }
+    dispatch(authUser(userData))
+      .unwrap()
+      .then(() => {
+        setUserData({ email: '', password: '', name: '' });
+        navigate('/todos');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

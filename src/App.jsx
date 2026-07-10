@@ -4,13 +4,17 @@ import './App.css';
 import Auth from './pages/auth';
 import Todos from './pages/todos';
 import NotFount from './pages/notFound';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/auth" replace />} />
       <Route path="/auth" element={<Auth />} />
-      <Route path="/todos" element={<Todos />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/todos" element={<Todos />} />
+      </Route>
+
       <Route path="*" element={<NotFount />} />
     </Routes>
   );
