@@ -20,8 +20,8 @@ export const authUserApi = async (userData) => {
     throw data;
   }
 
-  if (data.token) {
-    token.set(data.token);
+  if (data.access_token) {
+    token.set(data.access_token);
   }
 
   return data;

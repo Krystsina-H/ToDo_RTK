@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { authUser } from '../../RTK/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -12,24 +12,21 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const dispatch = useDispatch();
-  const { errors } = useSelector((store) => store.auth);
+  const { error, user } = useSelector((store) => store.auth);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (user) {
+      navigate('/todos');
+    }
+  }, [user, navigate]);
   const handleChange = (e) => {
     setUserData((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(authUser(userData))
-      .unwrap()
-      .then(() => {
-        setUserData({ email: '', password: '', name: '' });
-        navigate('/todos');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(authUser(userData));
+    setUserData({ email: '', password: '', name: '' });
   };
 
   return (
@@ -84,6 +81,11 @@ const Auth = () => {
           ? 'У Вас ещё нет аккаунта? Регистрация'
           : ' Вы уже зарегистрировались? Авторизоваться'}
       </button>
+      {error && (
+        <div style={{ color: 'red', marginTop: '10px' }}>
+          {error.message || error.error || 'Ошибка входа'}
+        </div>
+      )}
     </div>
   );
 };
