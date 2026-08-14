@@ -1,7 +1,7 @@
 import { token } from '../helpers/token';
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL || 'https://todo-redev.onrender.com/api';
+  import.meta.env.VITE_URL || 'http://localhost:5001/api';
 
 export const authUserApi = async (userData) => {
   const url = userData.name ? 'register' : 'login';

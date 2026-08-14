@@ -18,14 +18,14 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
-    errors: null,
+    error: null,
     isLoading: false,
   },
   reducers: {
     logoutUser: (state) => {
       logoutApi();
       state.user = null;
-      state.errors = null;
+      state.error = null;
       state.isLoading = false;
       console.log('Пользователь вышел');
     },
@@ -34,16 +34,16 @@ export const authSlice = createSlice({
     builder
       .addCase(authUser.pending, (state) => {
         state.isLoading = true;
-        state.errors = null;
+        state.error = null;
       })
       .addCase(authUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
-        state.errors = null;
+        state.error = null;
       })
       .addCase(authUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.errors = action.payload;
+        state.error = action.payload;
         state.user = null;
       });
   },

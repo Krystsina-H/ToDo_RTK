@@ -1,6 +1,6 @@
 import { token } from '../helpers/token';
 
-const API_URL = import.meta.env.VITE_URL;
+const API_URL = import.meta.env.VITE_URL || 'http://localhost:5001/api';
 
 const getHeaders = () => ({
   Authorization: `Bearer ${token.get()}`,

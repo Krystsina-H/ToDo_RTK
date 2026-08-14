@@ -1,4 +1,3 @@
-import { token } from '../../helpers/token';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../RTK/slices/authSlice';
 import { useNavigate } from 'react-router';
@@ -8,7 +7,6 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    token.remove();
     dispatch(logoutUser());
     navigate('/auth');
   };
